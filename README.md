@@ -31,7 +31,7 @@ FitLife is an online personal fitness trainer platform with personalized workout
 ## Local run
 
 ```bash
-cd d:\Шарага\Кинжа7\Task_19_FitLife
+cd 'your/project/folder'
 docker compose up --build -d
 ```
 
