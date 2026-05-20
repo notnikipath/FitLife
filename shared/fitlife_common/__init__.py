@@ -1,0 +1,71 @@
+"""Shared business logic for FitLife services."""
+
+from .analytics import build_recommendation, calculate_weekly_load, chart_points, shard_plan
+from .fitness import (
+    adapt_program_volume,
+    estimate_calories,
+    parallel_processing_plan,
+    recognize_activity,
+    video_cache_plan,
+)
+from .nutrition import calculate_meal_totals, calorie_error_pct, macro_distribution, recommended_kcal
+from .schemas import (
+    Achievement,
+    ActivityType,
+    Anthropometry,
+    GoalProfile,
+    LogWorkoutWorkflowResult,
+    MealItem,
+    MealTotals,
+    NotificationChannel,
+    NotificationPayload,
+    Product,
+    Role,
+    UserProfile,
+    UserStats,
+    WearableProvider,
+    WorkoutExercise,
+    WorkoutLog,
+    WorkoutProgram,
+    WorkoutRecommendation,
+)
+from .security import has_permission, sign_token, verify_token
+from .settings import Settings
+
+__all__ = [
+    "Achievement",
+    "ActivityType",
+    "Anthropometry",
+    "GoalProfile",
+    "LogWorkoutWorkflowResult",
+    "MealItem",
+    "MealTotals",
+    "NotificationChannel",
+    "NotificationPayload",
+    "Product",
+    "Role",
+    "Settings",
+    "UserProfile",
+    "UserStats",
+    "WearableProvider",
+    "WorkoutLog",
+    "WorkoutExercise",
+    "WorkoutProgram",
+    "WorkoutRecommendation",
+    "adapt_program_volume",
+    "build_recommendation",
+    "calculate_meal_totals",
+    "calculate_weekly_load",
+    "calorie_error_pct",
+    "chart_points",
+    "estimate_calories",
+    "has_permission",
+    "macro_distribution",
+    "parallel_processing_plan",
+    "recommended_kcal",
+    "recognize_activity",
+    "shard_plan",
+    "sign_token",
+    "verify_token",
+    "video_cache_plan",
+]

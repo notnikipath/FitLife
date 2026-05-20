@@ -1,0 +1,18 @@
+[
+  {
+    "user_id": "USR-DEMO",
+    "activity_type": "functional",
+    "duration_minutes": 42,
+    "distance_km": 0,
+    "calories_burned": 446,
+    "source": "manual"
+  },
+  {
+    "user_id": "USR-DEMO",
+    "activity_type": "cardio_run",
+    "duration_minutes": 30,
+    "distance_km": 5.6,
+    "calories_burned": 382,
+    "source": "garmin"
+  }
+]

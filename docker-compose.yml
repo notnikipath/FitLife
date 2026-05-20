@@ -1,0 +1,166 @@
+﻿services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    container_name: fitlife-api-gateway
+    env_file: .env
+    ports:
+      - "31042:8500"
+    depends_on:
+      - user-service
+      - workout-service
+      - tracking-service
+      - nutrition-service
+      - social-service
+      - analytics-service
+      - notification-service
+    networks: [fitlife-net]
+
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    container_name: fitlife-user
+    env_file: .env
+    ports:
+      - "8501:8501"
+    depends_on:
+      - postgres
+    networks: [fitlife-net]
+
+  workout-service:
+    build:
+      context: .
+      dockerfile: workout-service/Dockerfile
+    container_name: fitlife-workout
+    env_file: .env
+    ports:
+      - "31035:8502"
+    depends_on:
+      - redis
+    networks: [fitlife-net]
+
+  tracking-service:
+    build:
+      context: .
+      dockerfile: tracking-service/Dockerfile
+    container_name: fitlife-tracking
+    env_file: .env
+    ports:
+      - "31043:8503"
+    depends_on:
+      - mongodb
+      - rabbitmq
+      - redis
+    networks: [fitlife-net]
+
+  nutrition-service:
+    build:
+      context: .
+      dockerfile: nutrition-service/Dockerfile
+    container_name: fitlife-nutrition
+    env_file: .env
+    ports:
+      - "31037:8504"
+    depends_on:
+      - postgres
+    networks: [fitlife-net]
+
+  social-service:
+    build:
+      context: .
+      dockerfile: social-service/Dockerfile
+    container_name: fitlife-social
+    env_file: .env
+    ports:
+      - "32016:8505"
+    depends_on:
+      - postgres
+      - redis
+    networks: [fitlife-net]
+
+  analytics-service:
+    build:
+      context: .
+      dockerfile: analytics-service/Dockerfile
+    container_name: fitlife-analytics
+    env_file: .env
+    ports:
+      - "31040:8506"
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks: [fitlife-net]
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: notification-service/Dockerfile
+    container_name: fitlife-notification
+    env_file: .env
+    ports:
+      - "31041:8507"
+    depends_on:
+      - rabbitmq
+      - redis
+    networks: [fitlife-net]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: fitlife-frontend
+    env_file: .env
+    environment:
+      VITE_GATEWAY_PROXY_TARGET: http://api-gateway:8500
+    ports:
+      - "5180:5180"
+    depends_on:
+      - api-gateway
+    networks: [fitlife-net]
+
+  postgres:
+    image: postgres:16
+    container_name: fitlife-postgres
+    environment:
+      POSTGRES_DB: fitlife
+      POSTGRES_USER: fitlife
+      POSTGRES_PASSWORD: fitlife
+    ports:
+      - "30004:5432"
+    volumes:
+      - fitlife_postgres_data:/var/lib/postgresql/data
+    networks: [fitlife-net]
+
+  mongodb:
+    image: mongo:7
+    container_name: fitlife-mongodb
+    ports:
+      - "27018:27017"
+    volumes:
+      - fitlife_mongodb_data:/data/db
+    networks: [fitlife-net]
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: fitlife-rabbitmq
+    ports:
+      - "31036:5672"
+      - "31039:15672"
+    networks: [fitlife-net]
+
+  redis:
+    image: redis:7
+    container_name: fitlife-redis
+    ports:
+      - "31038:6379"
+    networks: [fitlife-net]
+
+networks:
+  fitlife-net:
+    driver: bridge
+
+volumes:
+  fitlife_postgres_data:
+  fitlife_mongodb_data:
