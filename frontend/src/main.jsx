@@ -1,3 +1,4 @@
+import { AppFrame } from "./AppFrame";
 import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
@@ -61,11 +62,11 @@ function App() {
   }, [data]);
 
   return (
-    <main className="layout">
+    <section className="layout">
       <section className="hero">
         <div>
           <p className="eyebrow">FitLife</p>
-          <h1>Personal Fitness Orchestration</h1>
+          <h1>Your daily momentum</h1>
           <p>
             Training plans, wearable logs, nutrition, achievements, and analytics in a single live dashboard.
           </p>
@@ -112,8 +113,8 @@ function App() {
           </section>
         </>
       )}
-    </main>
+    </section>
   );
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(<AppFrame><App /></AppFrame>);
